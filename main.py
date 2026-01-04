@@ -82,4 +82,32 @@ def validate_guess(x: str, validators: Iterable[Callable[[str], str | None]]) ->
 
 validators = [check_length, check_digits, check_zero, check_duplicity]
 
+# Function counting number of bulls and cows.
+
+def get_bulls_cows(secret_nr: list[int], guessed_nr: str) -> tuple[int, int]:
+    """Gets number of bulls and cows by comparison of secret number with guessed number.
+    Returns collection of bulls (correct number at correct position)
+    and cows (correct number at wrong position).
+    At first counts number of bulls, then sorts remaining numbers (no-bulls),
+    and compares no-bulls numbers with each other."""
+    list_guess = [int(x) for x in guessed_nr]
+    bulls = sum(1 for bull in range(CODE_LENGTH) if secret_nr[bull] == list_guess[bull])
+    cows = 0
+
+    remaining_secret = []
+    remaining_guessed = []
+    for x in range(CODE_LENGTH):
+        if secret_nr[x] != list_guess[x]:
+            remaining_secret.append(secret_nr[x])
+            remaining_guessed.append(list_guess[x])
+
+    for number in remaining_guessed:
+        if number in remaining_secret:
+            cows += 1
+            remaining_secret.remove(number)
+    
+    return bulls, cows
+
+
+
 guess = input(">>> ")
