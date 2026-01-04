@@ -69,7 +69,7 @@ def check_duplicity(x: str) -> str | None:
 def validate_guess(x: str, validators: Iterable[Callable[[str], str | None]]) -> tuple[bool, list[str]]:
     """Calls all functions from 'validators' over parameter x.
     Returns pair ok, errors, where:
-    - ok: True/False if there is/ is not found error.
+    - ok: True/False if there is not/is found error.
     - errors: list of error messages. Empty list = no errors, input is valid.
     """
     errors = []
