@@ -2,7 +2,7 @@ import random
 
 from _collections_abc import Iterable, Callable
 
-# Constant: given lenght of the secret code; 
+# Constant: given length of the secret code; 
 # to be easily changed throughout the programme, should there be such a need.
 
 CODE_LENGTH = 4
@@ -67,8 +67,8 @@ def check_duplicity(x: str) -> str | None:
 # Main function to validate the guessed number using output of auxiliary functions.
 
 def validate_guess(x: str, validators: Iterable[Callable[[str], str | None]]) -> tuple[bool, list[str]]:
-    """Calls all functions from 'validators' over parameter x.
-    Returns pair ok, errors, where:
+    """Calls all functions listed in validators over parameter x.
+    Returns pair ok - errors, where:
     - ok: True/False if there is not/is found error.
     - errors: list of error messages. Empty list = no errors, input is valid.
     """
