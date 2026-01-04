@@ -1,10 +1,22 @@
-# Programme creates secret 4-digit code on random basis.
-# There cannot be zero at first position, no number can repeat.
 import random
 
-code = []
+# Constant: given lenght of the secret code; 
+# to be easily changed throughout the programme, should there be such a need.
 
-while len(code) < 4:
+CODE_LENGTH = 4
+
+# Programme greets the user and prints out introduction.
+
+print("Hi there!","-" * 50, 
+      f"I've generated a random {CODE_LENGTH} digit number for you.", 
+      "Let's play a bulls and cows game.", "-" * 50, "Enter a number:", 
+      "-" * 50, sep="\n")
+
+# Programme randomly generates secret 4-digit number; 
+# no zero in the first position; no duplicity.
+
+code = []
+while len(code) < CODE_LENGTH:
     number = random.randint(0, 9)
     if len(code) == 0 and number == 0:
         continue
@@ -12,11 +24,6 @@ while len(code) < 4:
         continue
     else:
         code.append(number)
-
-# Programme greets the user and prints out introduction.
-print("Hi there!","-" * 50, "I've generated a random 4 digit number for you.", 
-      "Let's play a bulls and cows game.", "-" * 50, "Enter a number:", "-" * 50, sep="\n")
-guess = input(">>> ")
 
 # Guess number verification: correct length, only numbers, no zero at first position, no duplicity.
 if len(guess) != 4:
@@ -28,7 +35,6 @@ elif guess[0] == '0':
 elif len(guess) != len(set(guess)):
     print("Duplicity. The number cannot contain repeated digits!")
 else:
-    print("Entered number of correct length, containing only digits, with no zero " \
-    "in the first position, without duplicity.", "Let's start the game", sep="\n")
+    print("bulls, cows...")
 
-
+guess = input(">>> ")
