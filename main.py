@@ -1,5 +1,7 @@
 import random
 
+from _collections_abc import Iterable, Callable
+
 # Constant: given lenght of the secret code; 
 # to be easily changed throughout the programme, should there be such a need.
 
@@ -13,7 +15,7 @@ print("Hi there!","-" * 50,
       "-" * 50, sep="\n")
 
 # Programme randomly generates secret number; 
-# 4 digits, no zero in the first position; no duplicity.
+# 4 digits, no zero in the first position, no duplicity.
 
 code = []
 while len(code) < CODE_LENGTH:
@@ -25,7 +27,7 @@ while len(code) < CODE_LENGTH:
     else:
         code.append(number)
 
-# Functions to validate if initial conditions for guessed number are fulfilled:
+# Auxiliary functions to validate if initial conditions for guessed number are fulfilled:
 # correct length, only numbers, no zero at first position, no duplicity.
 
 def check_length(x: str) -> str | None:
@@ -62,5 +64,22 @@ def check_duplicity(x: str) -> str | None:
         return f"Error: duplicity. The number cannot contain repeated digits!"
     return None 
 
+# Main function to validate the guessed number using output of auxiliary functions.
+
+def validate_guess(x: str, validators: Iterable[Callable[[str], str | None]]) -> tuple[bool, list[str]]:
+    """Calls all functions from 'validators' over parameter x.
+    Returns pair ok, errors, where:
+    - ok: True/False if there is/ is not found error.
+    - errors: list of error messages. Empty list = no errors, input is valid.
+    """
+    errors = []
+    for fn in validators:
+        msg = fn(x)
+        if msg:
+            errors.append(msg)
+    ok = len(errors) == 0
+    return ok, errors
+
+validators = [check_length, check_digits, check_zero, check_duplicity]
 
 guess = input(">>> ")
