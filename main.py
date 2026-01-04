@@ -90,7 +90,7 @@ def get_bulls_cows(secret_nr: list[int], guessed_nr: str) -> tuple[int, int]:
     and cows (correct number at wrong position).
     At first counts number of bulls, then sorts remaining numbers (no-bulls),
     and compares no-bulls numbers with each other."""
-    list_guess = [int(x) for x in guessed_nr]
+    list_guess = [int(x) for x in guessed_nr]  
     bulls = sum(1 for bull in range(CODE_LENGTH) if secret_nr[bull] == list_guess[bull])
     cows = 0
 
@@ -108,6 +108,34 @@ def get_bulls_cows(secret_nr: list[int], guessed_nr: str) -> tuple[int, int]:
     
     return bulls, cows
 
+# Programme gets user's input, validates it and if ok, counts bulls and cows.
+# If necessary, looped.
+
+while True:
+    while True:
+        guess = input(">>> ")
+
+        ok, errors = validate_guess(guess, validators)
+        if ok:
+            break
+        else: 
+            for e in errors:
+                print(e)
+            print("Try again.")
+    
+    bulls, cows = get_bulls_cows(code, guess)
+
+    bull_label = "bull" if bulls == 1 else "bulls"
+    cow_label = "cow" if cows == 1 else "cows"
+
+    print(f"{bull_label}: {bulls}, {cow_label}: {cows}")
+
+    if bulls == CODE_LENGTH:
+        print("Correct, you've guessed the right number", 
+              "-"*50, "That's amazing!", sep="\n")
+        break
+    else:
+        print("Not yet. Guess again...", "-"*50, sep="\n")
 
 
-guess = input(">>> ")
+
