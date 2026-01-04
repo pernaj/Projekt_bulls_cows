@@ -89,7 +89,8 @@ def get_bulls_cows(secret_nr: list[int], guessed_nr: str) -> tuple[int, int]:
     Returns collection of bulls (correct number at correct position)
     and cows (correct number at wrong position).
     At first counts number of bulls, then sorts remaining numbers (no-bulls),
-    and compares no-bulls numbers with each other."""
+    and compares no-bulls numbers with each other.
+    """
     list_guess = [int(x) for x in guessed_nr]  
     bulls = sum(1 for bull in range(CODE_LENGTH) if secret_nr[bull] == list_guess[bull])
     cows = 0
